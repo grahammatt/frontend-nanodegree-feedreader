@@ -61,11 +61,10 @@
       * the CSS to determine how we're performing the
       * hiding/showing of the menu element.
       */
-     let initialClass = $('body').attr('class');
 
      it('is hidden by default', () => {
        //the body element should initially have the class menu-hidden
-       expect(initialClass).toBe('menu-hidden');
+       expect($('body').hasClass('menu-hidden')).toBe(true);
      });
      /* TODO: Write a test that ensures the menu changes
       * visibility when the menu icon is clicked. This test
@@ -73,14 +72,17 @@
       * clicked and does it hide when clicked again.
       */
      it('changes visibility when the menu icon is clicked', () => {
+       //setting a boolean value for the initial state of the Menu
+       //this way the spec will still be accurate if the manu is not hidden by default
+       let hidden = ($('body').hasClass('menu-hidden') ? true : false);
        //trigger click
        $('.menu-icon-link').trigger('click');
        //the menu should change classes when clicked
-       expect($('body').attr('class')).not.toBe(initialClass);
+       expect($('body').hasClass('menu-hidden')).not.toBe(hidden);
        //trigger click
        $('.menu-icon-link').trigger('click');
        //the menu should revert back to initial class
-       expect($('body').attr('class')).toBe(initialClass);
+       expect($('body').hasClass('menu-hidden')).toBe(hidden);
      });
    });
    /* TODO: Write a new test suite named "Initial Entries" */
@@ -104,7 +106,7 @@
      //runs only after done is called in beforeEach
      it('contains at least a single entry within the feed', () => {
        //if there are any elements with the 'entry' class than $('.entry') will have a length greater than 0
-       expect($(".entry").length).toBeGreaterThan(0);
+       expect($(".feed .entry").length).toBeGreaterThan(0);
      });
    });
 
